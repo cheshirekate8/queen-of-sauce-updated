@@ -13,9 +13,9 @@ model Post {
   title     String
   content   String?
   published Boolean @default(false)
-  author    User?@relation(fields:[authorId], references:[id])
+  author    User?   @relation(fields: [authorId], references: [id])
   authorId  String?
-  }
+}
 
 model Account {
   id                 String  @id @default(cuid())
@@ -33,29 +33,30 @@ model Account {
   oauth_token_secret String?
   oauth_token        String?
 
-  user User @relation(fields:[userId], references:[id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
-  }
+}
 
 model Session {
   id           String   @id @default(cuid())
-  sessionToken String   @unique@map("session_token")
+  sessionToken String   @unique @map("session_token")
   userId       String   @map("user_id")
   expires      DateTime
-  user         User     @relation(fields:[userId], references:[id], onDelete: Cascade)
-  }
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
 
 model User {
   id            String    @id @default(cuid())
   name          String?
-  email         String?@unique
+  email         String?   @unique
   emailVerified DateTime?
   image         String?
   posts         Post[]
   accounts      Account[]
   sessions      Session[]
-  }
+  fridges       Fridge[]
+}
 
 model VerificationToken {
   id         Int      @id @default(autoincrement())
@@ -64,4 +65,62 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
-  }
+}
+
+model Fridge {
+  id                String             @id @default(cuid())
+  name              String             @unique
+  owner             User?              @relation(fields: [ownerId], references: [id])
+  ownerId           String?
+  FridgeIngredients FridgeIngredient[]
+}
+
+model Recipe {
+  id                String             @id @default(cuid())
+  name              String             @unique
+  imgUrl            String
+  desc              String
+  RecipeIngredients RecipeIngredient[]
+}
+
+enum IngredientType {
+  CROPS
+  FORAGED_GOODS
+  TREE_FRUIT
+  ANIMAL_PRODUCTS
+  ARTISIAN_GOODS
+  MISCELLANEOUS
+  FISHING
+  CRAB_POT_ITEMS
+  GENERAL_STORE_ITEMS
+  INGREDIENT_DISHES
+}
+
+model Ingredient {
+  id               String             @id @default(cuid())
+  name             String             @unique
+  imgUrl           String
+  desc             String
+  type             IngredientType
+  alsoRecipe       Boolean            @default(false)
+  FridgeIngredient FridgeIngredient[]
+  RecipeIngredient RecipeIngredient[]
+}
+
+model FridgeIngredient {
+  id           String      @id @default(cuid())
+  fridge       Fridge?     @relation(fields: [fridgeId], references: [id])
+  fridgeId     String?
+  ingredient   Ingredient? @relation(fields: [ingredientId], references: [id])
+  ingredientId String?
+  quantity     Int
+}
+
+model RecipeIngredient {
+  id           String      @id @default(cuid())
+  recipe       Recipe?     @relation(fields: [recipeId], references: [id])
+  recipeId     String?
+  ingredient   Ingredient? @relation(fields: [ingredientId], references: [id])
+  ingredientId String?
+  quantity     Int
+}
