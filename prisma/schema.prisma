@@ -1,11 +1,10 @@
-// schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-}
-
-generator client {
-  provider = "prisma-client-js"
 }
 
 model Post {
@@ -13,8 +12,8 @@ model Post {
   title     String
   content   String?
   published Boolean @default(false)
-  author    User?   @relation(fields: [authorId], references: [id])
   authorId  String?
+  author    User?   @relation(fields: [authorId], references: [id])
 }
 
 model Account {
@@ -32,8 +31,7 @@ model Account {
   session_state      String?
   oauth_token_secret String?
   oauth_token        String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user               User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
 }
@@ -52,10 +50,10 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
-  posts         Post[]
   accounts      Account[]
-  sessions      Session[]
   fridges       Fridge[]
+  posts         Post[]
+  sessions      Session[]
 }
 
 model VerificationToken {
@@ -68,19 +66,50 @@ model VerificationToken {
 }
 
 model Fridge {
-  id                String             @id @default(cuid())
+  id                Int                @id @default(autoincrement())
   name              String             @unique
-  owner             User?              @relation(fields: [ownerId], references: [id])
   ownerId           String?
+  owner             User?              @relation(fields: [ownerId], references: [id])
   FridgeIngredients FridgeIngredient[]
 }
 
+model Ingredient {
+  id               Int                @id @default(autoincrement())
+  name             String             @unique
+  imgUrl           String
+  desc             String
+  type             IngredientType
+  alsoRecipe       Boolean            @default(false)
+  FridgeIngredient FridgeIngredient[]
+  RecipeIngredient RecipeIngredient[]
+}
+
 model Recipe {
-  id                String             @id @default(cuid())
+  id                Int                @id @default(autoincrement())
   name              String             @unique
   imgUrl            String
   desc              String
   RecipeIngredients RecipeIngredient[]
+}
+
+model FridgeIngredient {
+  FridgeId     Int
+  IngredientId Int
+  quantity     Int
+  Fridges      Fridge     @relation(fields: [FridgeId], references: [id])
+  Ingredient   Ingredient @relation(fields: [IngredientId], references: [id])
+
+  @@id([FridgeId, IngredientId])
+}
+
+model RecipeIngredient {
+  recipeId     Int
+  ingredientId Int
+  quantity     Int
+  Ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  Recipe       Recipe     @relation(fields: [recipeId], references: [id])
+
+  @@id([recipeId, ingredientId])
 }
 
 enum IngredientType {
@@ -94,33 +123,4 @@ enum IngredientType {
   CRAB_POT_ITEMS
   GENERAL_STORE_ITEMS
   INGREDIENT_DISHES
-}
-
-model Ingredient {
-  id               String             @id @default(cuid())
-  name             String             @unique
-  imgUrl           String
-  desc             String
-  type             IngredientType
-  alsoRecipe       Boolean            @default(false)
-  FridgeIngredient FridgeIngredient[]
-  RecipeIngredient RecipeIngredient[]
-}
-
-model FridgeIngredient {
-  id           String      @id @default(cuid())
-  fridge       Fridge?     @relation(fields: [fridgeId], references: [id])
-  fridgeId     String?
-  ingredient   Ingredient? @relation(fields: [ingredientId], references: [id])
-  ingredientId String?
-  quantity     Int
-}
-
-model RecipeIngredient {
-  id           String      @id @default(cuid())
-  recipe       Recipe?     @relation(fields: [recipeId], references: [id])
-  recipeId     String?
-  ingredient   Ingredient? @relation(fields: [ingredientId], references: [id])
-  ingredientId String?
-  quantity     Int
 }

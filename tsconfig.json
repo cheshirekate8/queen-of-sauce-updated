@@ -26,5 +26,5 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ]
+, "prisma/seed/data/users.js", "prisma/seed/data/recipes.js", "prisma/seed/data/ingredients.js"  ]
 }
