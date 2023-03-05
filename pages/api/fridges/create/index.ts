@@ -1,6 +1,6 @@
 // pages/api/post/index.ts
 
-import { getSession } from 'next-auth/react';
+import { getSession } from "next-auth/react";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -9,13 +9,18 @@ const prisma = new PrismaClient();
 // Required fields in body: name
 export default async function handle(req, res) {
   const { name, email } = req.body;
-
-  const session = await getSession({ req });
-  const result = await prisma.fridge.create({
-    data: {
-      name: name,
-      owner: { connect: { email: session?.user?.email || email } },
-    },
-  });
-  res.json(result);
+  if (req.method === "POST") {
+    const session = await getSession({ req });
+    const result = await prisma.fridge.create({
+      data: {
+        name: name,
+        owner: { connect: { email: session?.user?.email || email } },
+      },
+    });
+    res.json(result);
+  } else {
+    throw new Error(
+      `The HTTP ${req.method} method is not supported at this route.`
+    );
+  }
 }

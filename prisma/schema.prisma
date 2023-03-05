@@ -86,7 +86,7 @@ model FridgeIngredient {
   FridgeId     Int
   IngredientId Int
   quantity     Int
-  Fridges      Fridge     @relation(fields: [FridgeId], references: [id])
+  Fridge      Fridge     @relation(fields: [FridgeId], references: [id])
   Ingredient   Ingredient @relation(fields: [IngredientId], references: [id])
 
   @@id([FridgeId, IngredientId])
