@@ -1,31 +1,34 @@
+import { PrismaClient } from "@prisma/client";
+// const prisma = new PrismaClient();
+
+// const getEgg = async () => {return await prisma.ingredient.findUnique({
+//   where: {
+//     name: "Egg"
+//   },
+// })};
+
+// console.log("GOT THE EGGS", getEgg().id)
+
 module.exports = [
   {
     email: "alice@prisma.io",
     name: "Alice",
-    posts: {
+    fridges: {
       create: {
-        title: "Check out Prisma with Next.js",
-        content: "https://www.prisma.io/nextjs",
-        published: true,
+        name: "Alice's Fridge",
+        FridgeIngredients: {
+          create: [
+            {
+              quantity: 10,
+              Ingredient: { connect: { id: 44 } }
+            }
+          ]
+        }
       },
     },
   },
   {
     email: "bob@prisma.io",
     name: "Bob",
-    posts: {
-      create: [
-        {
-          title: "Follow Prisma on Twitter",
-          content: "https://twitter.com/prisma",
-          published: true,
-        },
-        {
-          title: "Follow Nexus on Twitter",
-          content: "https://twitter.com/nexusgql",
-          published: true,
-        },
-      ],
-    },
   },
 ]

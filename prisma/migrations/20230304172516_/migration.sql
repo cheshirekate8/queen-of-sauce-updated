@@ -2,17 +2,6 @@
 CREATE TYPE "IngredientType" AS ENUM ('CROPS', 'FORAGED_GOODS', 'TREE_FRUIT', 'ANIMAL_PRODUCTS', 'ARTISIAN_GOODS', 'MISCELLANEOUS', 'FISHING', 'CRAB_POT_ITEMS', 'GENERAL_STORE_ITEMS', 'INGREDIENT_DISHES');
 
 -- CreateTable
-CREATE TABLE "Post" (
-    "id" TEXT NOT NULL,
-    "title" TEXT NOT NULL,
-    "content" TEXT,
-    "published" BOOLEAN NOT NULL DEFAULT false,
-    "authorId" TEXT,
-
-    CONSTRAINT "Post_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "Account" (
     "id" TEXT NOT NULL,
     "user_id" TEXT NOT NULL,
@@ -135,9 +124,6 @@ CREATE UNIQUE INDEX "Ingredient_name_key" ON "Ingredient"("name");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Recipe_name_key" ON "Recipe"("name");
-
--- AddForeignKey
-ALTER TABLE "Post" ADD CONSTRAINT "Post_authorId_fkey" FOREIGN KEY ("authorId") REFERENCES "User"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Account" ADD CONSTRAINT "Account_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;

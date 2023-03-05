@@ -5,18 +5,8 @@ const prisma = new PrismaClient();
 const Users = require('./data/users');
 const Ingredients = require('./data/ingredients');
 const Recipes = require('./data/recipes');
-const RecipeIngredients = require('./data/recipeIngredients');
 
 async function runSeeders() {
-  // Users
-  await Promise.all(
-    Users.map(async (user) =>
-      prisma.user.create({
-        data: user,
-      })
-    )
-  );
-
   // Ingredients
   await Promise.all(
     Ingredients.map(async (ingredient) =>
@@ -26,7 +16,7 @@ async function runSeeders() {
     )
   );
 
-  // Recipes
+  // Recipes (with their Ingredients)
   await Promise.all(
     Recipes.map(async (recipe) =>
       prisma.recipe.create({
@@ -35,13 +25,13 @@ async function runSeeders() {
     )
   );
 
-  // RecipeIngredients
+  // Users (with their Fridges and Ingredients)
   await Promise.all(
-    RecipeIngredients.map(async (recipeIngredient) => {
-        return prisma.recipeIngredient.create({
-          data: recipeIngredient,
-        });
-    })
+    Users.map(async (user) =>
+      prisma.user.create({
+        data: user,
+      })
+    )
   );
 }
 
