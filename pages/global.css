@@ -1,0 +1,25 @@
+body {
+  background-color: aqua;
+  padding: 1rem;
+}
+
+.nav,
+.left,
+.right {
+  display: flex;
+  margin: 1rem;
+}
+
+.nav {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.noMargin {
+  margin: 0;
+}
+
+.icon {
+  width: 3rem;
+  height: 3rem;
+}
