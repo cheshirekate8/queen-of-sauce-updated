@@ -25,7 +25,7 @@ const Home: React.FC = () => {
 
   return (
     <Layout>
-    <div>{session ? home : splash}</div>
+      <div>{session ? home : splash}</div>
     </Layout>
   );
 };
