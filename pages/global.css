@@ -4,26 +4,26 @@
 
 @font-face {
   font-family: "SV Title Caps";
-  src: url('../assets/fonts/svallcaps.ttf');
+  src: url('../public/fonts/svallcaps.ttf');
 }
   
 @font-face {
   font-family: "SV Bold";
-  src: url('../assets/fonts/svbold.ttf');
+  src: url('../public/fonts/svbold.ttf');
 }
   
 @font-face {
   font-family: "SV Thin";
-  src: url('../assets/fonts/svthin.ttf');
+  src: url('../public/fonts/svthin.ttf');
 }
 
 @font-face {
   font-family: "SV Title";
-  src: url('../assets/fonts/svtitle.ttf');
+  src: url('../public/fonts/svtitle.ttf');
 }
 
 body {
-  background: url("../assets/images/background.png") no-repeat fixed center;
+  background: url("../public/images/background.png") no-repeat fixed center;
   background-size: cover;
   color: white;
   padding: 1rem;

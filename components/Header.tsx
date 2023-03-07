@@ -49,14 +49,12 @@ const Header: React.FC = () => {
     left = (
       <div className="flex">
         <GiField className="w-12 h-12 mr-8" />
-        <ul className="flex">
+        <ul className="hidden md:flex">
           {navLinkArray.map((navLink) => (
             <li className="p-4">
               <Link
                 href={navLink.href}
-                className={`${
-                  router.route === navLink.href ? "underline" : ""
-                }`}
+                className={`${router.route === navLink.href ? "underline" : ""}`}
               >
                 {navLink.title}
               </Link>

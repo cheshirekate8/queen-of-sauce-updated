@@ -6,7 +6,14 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        "sv-thin": ["SV Thin"],
+        "sv-bold": ["SV Bold"],
+        "sv-title": ["SV Title"],
+        "sv-title-caps": ["SV Title Caps"],
+      }
+    },
   },
   plugins: [],
 }

@@ -9,10 +9,10 @@ type Props = {
 const Layout: React.FC<Props> = (props) => (
   <div>
     <Head>
-      <title>My page title</title>
+      <title>Queen of Sauce</title>
     </Head>
     <Header />
-    <div className="layout">{props.children}</div>
+    <div className="layout font-sv-thin">{props.children}</div>
   </div>
 );
 
