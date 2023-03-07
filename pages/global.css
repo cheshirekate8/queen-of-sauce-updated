@@ -1,5 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @font-face {
-  font-family: "SV All Caps";
+  font-family: "SV Title Caps";
   src: url('../assets/fonts/svallcaps.ttf');
 }
   
@@ -25,24 +29,14 @@ body {
   padding: 1rem;
 }
 
+ul,
+p {
+  margin: 0;
+}
+
 li {
   list-style: none;
-}
-
-.nav,
-.left,
-.right {
-  display: flex;
-}
-
-.nav {
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 1rem;
-}
-
-.linksList {
-  display: flex;
+  margin: auto;
 }
 
 a {
@@ -51,19 +45,11 @@ a {
   text-decoration: none;
 }
 
-.currentPath {
-  text-decoration: underline;
-}
-
 button {
   background: transparent;
 }
 
-.noMargin {
-  margin: 0;
-}
-
-.icon {
-  width: 3rem;
-  height: 3rem;
+.userEmail {
+  font-family: "SV Bold";
+  padding-right: 1rem;
 }

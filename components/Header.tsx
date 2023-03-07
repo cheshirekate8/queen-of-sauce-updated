@@ -13,16 +13,9 @@ const Header: React.FC = () => {
 
   const { data: session, status } = useSession();
 
-  //IF LOGGED OUT
-  // Left logo, no links
-  // Right login
-  //IF LOGGED IN
-  // Left logo and links
-  // Right email and logout
-
   let left = (
-    <div className="left">
-      <GiField className="icon" />
+    <div className="flex">
+      <GiField className="w-12 h-12 mr-8" />
     </div>
   );
 
@@ -30,15 +23,15 @@ const Header: React.FC = () => {
 
   if (status === "loading") {
     right = (
-      <div className="right">
-        <p className="noMargin">Validating session ...</p>
+      <div className="flex">
+        <p>Validating session ...</p>
       </div>
     );
   }
 
   if (!session) {
     right = (
-      <div className="right">
+      <div className="flex">
         <Link legacyBehavior href="/api/auth/signin">
           <a data-active={isActive("/signup")}>Log in</a>
         </Link>
@@ -54,15 +47,15 @@ const Header: React.FC = () => {
 
   if (session) {
     left = (
-      <div className="left">
-        <GiField className="icon" />
-        <ul className="linksList">
+      <div className="flex">
+        <GiField className="w-12 h-12 mr-8" />
+        <ul className="flex">
           {navLinkArray.map((navLink) => (
-            <li>
+            <li className="p-4">
               <Link
                 href={navLink.href}
                 className={`${
-                  router.route === navLink.href ? "currentPath" : ""
+                  router.route === navLink.href ? "underline" : ""
                 }`}
               >
                 {navLink.title}
@@ -73,8 +66,8 @@ const Header: React.FC = () => {
       </div>
     );
     right = (
-      <div className="right">
-        <p className="noMargin">
+      <div className="flex">
+        <p className="userEmail">
           {session.user.name} ({session.user.email})
         </p>
         <button onClick={() => signOut()}>
@@ -85,7 +78,7 @@ const Header: React.FC = () => {
   }
 
   return (
-    <nav className="nav">
+    <nav className="flex justify-between items-center pb-4">
       {left}
       {right}
     </nav>
