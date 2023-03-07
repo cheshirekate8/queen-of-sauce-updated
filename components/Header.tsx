@@ -5,9 +5,9 @@ import { useRouter } from "next/router";
 import React from "react";
 import { GiField } from "react-icons/gi";
 
-
 const Header: React.FC = () => {
   const router = useRouter();
+  console.log(router.route);
   const isActive: (pathname: string) => boolean = (pathname) =>
     router.pathname === pathname;
 
@@ -20,19 +20,18 @@ const Header: React.FC = () => {
   // Left logo and links
   // Right email and logout
 
-  let left = (<div className="left">
-    <GiField className="icon"/>
-  </div>);
+  let left = (
+    <div className="left">
+      <GiField className="icon" />
+    </div>
+  );
 
   let right = null;
 
   if (status === "loading") {
-    left = (<div className="left">
-      <GiField className="icon"/>
-    </div>);
     right = (
       <div className="right">
-        <p className="noMargin" >Validating session ...</p>
+        <p className="noMargin">Validating session ...</p>
       </div>
     );
   }
@@ -47,13 +46,35 @@ const Header: React.FC = () => {
     );
   }
 
+  const navLinkArray = [
+    { href: "/", title: "Home" },
+    { href: "/recipes", title: "Recipes" },
+    { href: "/ingredients", title: "Ingredients" },
+  ];
+
   if (session) {
-    left = (<div className="left">
-      <GiField className="icon"/>
-    </div>);
+    left = (
+      <div className="left">
+        <GiField className="icon" />
+        <ul className="linksList">
+          {navLinkArray.map((navLink) => (
+            <li>
+              <Link
+                href={navLink.href}
+                className={`${
+                  router.route === navLink.href ? "currentPath" : ""
+                }`}
+              >
+                {navLink.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
     right = (
       <div className="right">
-        <p className="noMargin" >
+        <p className="noMargin">
           {session.user.name} ({session.user.email})
         </p>
         <button onClick={() => signOut()}>

@@ -1,8 +1,32 @@
+@font-face {
+  font-family: "SV All Caps";
+  src: url('../assets/fonts/svallcaps.ttf');
+}
+  
+@font-face {
+  font-family: "SV Bold";
+  src: url('../assets/fonts/svbold.ttf');
+}
+  
+@font-face {
+  font-family: "SV Thin";
+  src: url('../assets/fonts/svthin.ttf');
+}
+
+@font-face {
+  font-family: "SV Title";
+  src: url('../assets/fonts/svtitle.ttf');
+}
+
 body {
   background: url("../assets/images/background.png") no-repeat fixed center;
   background-size: cover;
   color: white;
   padding: 1rem;
+}
+
+li {
+  list-style: none;
 }
 
 .nav,
@@ -17,8 +41,18 @@ body {
   padding-bottom: 1rem;
 }
 
+.linksList {
+  display: flex;
+}
+
 a {
   color: white;
+  font-family: "SV Thin";
+  text-decoration: none;
+}
+
+.currentPath {
+  text-decoration: underline;
 }
 
 button {

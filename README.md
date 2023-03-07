@@ -19,16 +19,19 @@
 - Day 5: Simple CSS to get the ball rolling, breaking and unbreaking github Oauth
 
 To Do
-  Redo GithubOauth and add Gmail Oauth!
-  Prisma Validation
+  Finish Header
+    - Links
+    - Desktop Styling
+    - Mobile Styling
   Protected Routes
     Ingredient
     Recipe
-    ???
-  Cute 404
-  Google OAuth
   Recipes Page
   Ingredients Page
   Fridges Page
+  Cute 404
+  Prisma Validation
+  Other OAuth
+    Google OAuth
   Tooltip on how to delete account
     Make unique to oauth token, google or github?
