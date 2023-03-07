@@ -20,10 +20,11 @@ This is the starter project for the fullstack tutorial with Next.js and Prisma. 
   RecipeIngredients Routes
     NONE => RecipeIngredients are unique in that they are game logic that cannot be edited by user AND are read on Recipes
   Remove all post functionality from starter (schema, crud, pages)
-- Day 5: Simple CSS to get the ball rolling
+- Day 5: Simple CSS to get the ball rolling and break github Oauth
     
     
 To Do
+  Redo GithubOauth and add Gmail Oauth!
   Prisma Validation
   Protected Routes
     Ingredient
