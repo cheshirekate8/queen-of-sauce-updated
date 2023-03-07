@@ -1,16 +1,6 @@
 body {
-  background: url("../assets/images/background.png") no-repeat fixed center;
-  background-size: cover;
-  color: white;
+  background-color: aqua;
   padding: 1rem;
-}
-
-a {
-  color: white;
-}
-
-button {
-  background: transparent;
 }
 
 .nav,
