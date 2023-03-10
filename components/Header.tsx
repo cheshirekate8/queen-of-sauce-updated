@@ -4,42 +4,36 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import { GiField } from "react-icons/gi";
+import { Menu, Transition } from '@headlessui/react'
 
 
 const Header: React.FC = () => {
   const router = useRouter();
+  console.log(router.route);
   const isActive: (pathname: string) => boolean = (pathname) =>
     router.pathname === pathname;
 
   const { data: session, status } = useSession();
 
-  //IF LOGGED OUT
-  // Left logo, no links
-  // Right login
-  //IF LOGGED IN
-  // Left logo and links
-  // Right email and logout
-
-  let left = (<div className="left">
-    <GiField className="icon"/>
-  </div>);
+  let left = (
+    <div className="flex">
+      <GiField className="w-12 h-12 mr-8" />
+    </div>
+  );
 
   let right = null;
 
   if (status === "loading") {
-    left = (<div className="left">
-      <GiField className="icon"/>
-    </div>);
     right = (
-      <div className="right">
-        <p className="noMargin" >Validating session ...</p>
+      <div className="flex">
+        <p>Validating session ...</p>
       </div>
     );
   }
 
   if (!session) {
     right = (
-      <div className="right">
+      <div className="flex">
         <Link legacyBehavior href="/api/auth/signin">
           <a data-active={isActive("/signup")}>Log in</a>
         </Link>
@@ -47,13 +41,36 @@ const Header: React.FC = () => {
     );
   }
 
+  const navLinkArray = [
+    { href: "/", title: "Home" },
+    { href: "/recipes", title: "Recipes" },
+    { href: "/ingredients", title: "Ingredients" },
+  ];
+
   if (session) {
-    left = (<div className="left">
-      <GiField className="icon"/>
-    </div>);
+    left = (
+      <div className="flex">
+        <GiField className="w-12 h-12 mr-8" />
+        <ul className="hidden md:flex">
+          {navLinkArray.map((navLink) => (
+            <li className="p-4">
+              <Link
+                href={navLink.href}
+                className={`${router.route === navLink.href ? "underline" : ""}`}
+              >
+                {navLink.title}
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <div className="block md:hidden">
+          V
+        </div>
+      </div>
+    );
     right = (
-      <div className="right">
-        <p className="noMargin" >
+      <div className="flex">
+        <p className="userEmail">
           {session.user.name} ({session.user.email})
         </p>
         <button onClick={() => signOut()}>
@@ -64,7 +81,7 @@ const Header: React.FC = () => {
   }
 
   return (
-    <nav className="nav">
+    <nav className="flex justify-between items-center pb-4">
       {left}
       {right}
     </nav>

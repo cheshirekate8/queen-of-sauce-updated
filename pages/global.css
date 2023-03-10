@@ -1,35 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "SV Title Caps";
+  src: url('../public/fonts/svallcaps.ttf');
+}
+  
+@font-face {
+  font-family: "SV Bold";
+  src: url('../public/fonts/svbold.ttf');
+}
+  
+@font-face {
+  font-family: "SV Thin";
+  src: url('../public/fonts/svthin.ttf');
+}
+
+@font-face {
+  font-family: "SV Title";
+  src: url('../public/fonts/svtitle.ttf');
+}
+
 body {
-  background: url("../assets/images/background.png") no-repeat fixed center;
+  background: url("../public/images/background.png") no-repeat fixed center;
   background-size: cover;
   color: white;
   padding: 1rem;
+  font-size: 1.25rem;
 }
 
-.nav,
-.left,
-.right {
-  display: flex;
+ul,
+p {
+  margin: 0;
 }
 
-.nav {
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 1rem;
+li {
+  list-style: none;
+  margin: auto;
 }
 
 a {
   color: white;
+  font-family: "SV Thin";
+  text-decoration: none;
 }
 
 button {
   background: transparent;
 }
 
-.noMargin {
-  margin: 0;
-}
-
-.icon {
-  width: 3rem;
-  height: 3rem;
+.userEmail {
+  font-family: "SV Bold";
+  padding-right: 1rem;
 }
